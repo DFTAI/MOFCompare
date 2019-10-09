@@ -1,0 +1,18 @@
+{
+  "ModuleInfo": {
+    "Name": "MOFCompare",
+    "CompanyName": "DFTAI",
+    "Copyright": "DFTAI 2019",
+    "Author": "Ryan Bartram",
+    "Guid": "cf687022-6467-4406-925e-104ffe1a3de9",
+    "Description": "Allows two MOF files to be compared and show the differences between them",
+    "tags": [
+      "DSC",
+      "MOF",
+      "compare",
+      "PSEdition_Desktop"
+    ],
+    "RequireLicenseAcceptance": false
+  },
+  "StaticResources": []
+}
