@@ -38,6 +38,24 @@ Sometimes its nice to be able to read a MOF file with PowerShell in order to tes
 
 This is a really powerful feature which basic provides a similar feature to terraform plan but for DSC. You can know what resources have changed or been removed/added between any two MOFs. Its really useful for change management as well as for cleaning up resources after they've been removed.
 
+## How to use
+
+```powershell
+# Import all the DSC Resources in the $env:PSModulePath into the cache to enable parsing of the schemas
+Initialize-DscResourceCache
+
+# you can use -ModulePathsToImport if you want to import specific modules
+
+# The initial version requires you parse the MOFs seperately, but the next release will be able to automatically parse the file paths you pass
+
+$ReferenceMof = ConvertFrom-MOF -Path .\first.mof
+
+$DifferenceMof = ConvertFrom-MOF -Path .\second.mof
+
+Compare-MOF -ReferenceMOF $ReferenceMof -DifferencingMOF $DifferenceMof -CompareProperties
+
+# the CompareProperties which allows not only comparison of the resources that are added and removed, but also the properties of modified resources
+```
 
 ## Further reading
 
