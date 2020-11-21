@@ -27,11 +27,11 @@ function Compare-MOF {
             [Dictionary[string, PSCustomObject[]]]$ChangedResources = (New-Object 'System.Collections.Generic.Dictionary[string, PSCustomObject[]]')
 
             Foreach ($key in $CompareResult.Where( { $_.SideIndicator -eq "==" })) {
-                $propertiestocheck = $ConfigurationElements[$key].CimInstanceProperties.name.Where{ $key -notin @("sourceinfo") }
-                if (Compare-Object $ConfigurationElements[$key] $ConfigurationElements1[$key] -Property $propertiestocheck) {
+                $propertiestocheck = $ReferenceMOF[$key].CimInstanceProperties.name.Where{ $key -notin @("sourceinfo") }
+                if (Compare-Object $ReferenceMOF[$key] $DifferencingMOF[$key] -Property $propertiestocheck) {
                     $changedproperties = @()
                     foreach ($property in $propertiestocheck) {
-                        $result = Compare-Object $ConfigurationElements[$key] $ConfigurationElements1[$key] -Property $property
+                        $result = Compare-Object $ReferenceMOF[$key] $DifferencingMOF[$key] -Property $property
                         if ($result) {
                             $changedproperties += [PSCustomObject]@{
                                 Name     = $property
@@ -40,7 +40,7 @@ function Compare-MOF {
                             }
                         }
                     }
-                    $ChangedResources.Add($ConfigurationElements[$key].ResourceId, $changedproperties)
+                    $ChangedResources.Add($ReferenceMOF[$key].ResourceId, $changedproperties)
                 }
             }
 

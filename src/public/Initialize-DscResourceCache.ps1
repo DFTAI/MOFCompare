@@ -10,7 +10,7 @@ function Initialize-DscResourceCache {
         Reset-DscResourceCache
         $OldPSModulePath = $env:PSModulePath
         if ($ModulePathsToImport.count -gt 0) {
-            $env:PSModulePath = $ModulePathsToImport.ForEach{ Resolve-Path $_ } -join ';'
+            $env:PSModulePath = $ModulePathsToImport.ForEach{ Resolve-Path $_ -ea SilentlyContinue } -join ';'
         }
     }
 
